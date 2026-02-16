@@ -5,7 +5,7 @@
 
 $(document).ready(function() {
     // 配置
-    const API_BASE_URL = 'http://106.54.224.78:5000/api';
+    const API_BASE_URL = 'http://localhost:5000/api';
     
     // 初始化
     initApp();
