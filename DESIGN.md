@@ -2,12 +2,12 @@
 
 ## 文档信息
 
-| 项目 | AI解题助手 MVP |
-|------|---------------|
-| 版本 | v1.0.0 |
-| 创建日期 | 2026-02-16 |
-| 最后更新 | 2026-02-16 |
-| 作者 | AI Solver Team |
+| 项目   | AI解题助手 MVP                       |
+| ---- | -------------------------------- |
+| 版本   | v1.0.0                           |
+| 创建日期 | 2026-02-16                       |
+| 最后更新 | 2026-02-16                       |
+| 作者   | Zxyj |
 
 ---
 
@@ -44,25 +44,25 @@ AI解题助手是一个基于大语言模型的智能解题应用，旨在帮助
 
 #### 后端技术栈
 
-| 技术 | 版本 | 用途 |
-|------|------|------|
-| Python | 3.7+ | 开发语言 |
-| Flask | 3.0.0 | Web框架 |
-| Flask-CORS | 4.0.0 | 跨域请求处理 |
-| OpenAI SDK | >=1.12.0 | 大模型API调用 |
-| python-dotenv | 1.0.0 | 环境变量管理 |
-| httpx | >=0.25.0 | HTTP客户端 |
+| 技术            | 版本       | 用途       |
+| ------------- | -------- | -------- |
+| Python        | 3.7+     | 开发语言     |
+| Flask         | 3.0.0    | Web框架    |
+| Flask-CORS    | 4.0.0    | 跨域请求处理   |
+| OpenAI SDK    | >=1.12.0 | 大模型API调用 |
+| python-dotenv | 1.0.0    | 环境变量管理   |
+| httpx         | >=0.25.0 | HTTP客户端  |
 
 #### 前端技术栈
 
-| 技术 | 版本 | 用途 |
-|------|------|------|
-| HTML5 | - | 页面结构 |
-| CSS3 | - | 样式设计 |
-| JavaScript | ES6+ | 交互逻辑 |
-| Bootstrap | 3.4.1 | UI框架 |
-| jQuery | 3.6.0 | DOM操作 |
-| Font Awesome | 4.7.0 | 图标库 |
+| 技术           | 版本    | 用途    |
+| ------------ | ----- | ----- |
+| HTML5        | -     | 页面结构  |
+| CSS3         | -     | 样式设计  |
+| JavaScript   | ES6+  | 交互逻辑  |
+| Bootstrap    | 3.4.1 | UI框架  |
+| jQuery       | 3.6.0 | DOM操作 |
+| Font Awesome | 4.7.0 | 图标库   |
 
 ---
 
@@ -175,13 +175,13 @@ backend/
 ```python
 class AIService:
     """AI解题服务类"""
-    
+
     属性:
         - api_key: str        # API密钥
         - api_base: str       # API基础地址
         - model: str          # 模型名称
         - client: OpenAI      # OpenAI客户端实例
-    
+
     方法:
         - __init__(api_key, api_base, model)
         - solve_problem(problem) -> Optional[str]
@@ -193,7 +193,7 @@ class AIService:
 ```python
 class Config:
     """配置类"""
-    
+
     属性:
         - SECRET_KEY: str           # Flask密钥
         - AI_API_KEY: str           # AI API密钥
@@ -319,22 +319,24 @@ AJAX POST /api/solve
 
 ### 4.1 API列表
 
-| 端点 | 方法 | 描述 | 认证 |
-|------|------|------|------|
-| `/api/health` | GET | 健康检查 | 否 |
-| `/api/solve` | POST | 解题接口 | 否 |
-| `/api/models` | GET | 获取模型列表 | 否 |
+| 端点            | 方法   | 描述     | 认证  |
+| ------------- | ---- | ------ | --- |
+| `/api/health` | GET  | 健康检查   | 否   |
+| `/api/solve`  | POST | 解题接口   | 否   |
+| `/api/models` | GET  | 获取模型列表 | 否   |
 
 ### 4.2 接口详情
 
 #### 4.2.1 健康检查接口
 
 **请求：**
+
 ```http
 GET /api/health
 ```
 
 **响应：**
+
 ```json
 {
   "status": "ok",
@@ -343,6 +345,7 @@ GET /api/health
 ```
 
 **状态码：**
+
 - `200 OK`: 服务正常运行
 
 ---
@@ -350,6 +353,7 @@ GET /api/health
 #### 4.2.2 解题接口
 
 **请求：**
+
 ```http
 POST /api/solve
 Content-Type: application/json
@@ -361,11 +365,12 @@ Content-Type: application/json
 
 **请求参数：**
 
-| 参数 | 类型 | 必填 | 描述 |
-|------|------|------|------|
-| problem | string | 是 | 题目内容，不能为空 |
+| 参数      | 类型     | 必填  | 描述        |
+| ------- | ------ | --- | --------- |
+| problem | string | 是   | 题目内容，不能为空 |
 
 **成功响应：**
+
 ```json
 {
   "success": true,
@@ -378,6 +383,7 @@ Content-Type: application/json
 ```
 
 **错误响应：**
+
 ```json
 {
   "success": false,
@@ -386,6 +392,7 @@ Content-Type: application/json
 ```
 
 **状态码：**
+
 - `200 OK`: 成功获取解答
 - `400 Bad Request`: 请求参数错误
 - `500 Internal Server Error`: 服务器内部错误
@@ -403,11 +410,13 @@ Content-Type: application/json
 #### 4.2.3 获取模型列表接口
 
 **请求：**
+
 ```http
 GET /api/models
 ```
 
 **响应：**
+
 ```json
 {
   "success": true,
@@ -425,6 +434,7 @@ GET /api/models
 ```
 
 **状态码：**
+
 - `200 OK`: 成功获取模型列表
 
 ---
@@ -432,16 +442,19 @@ GET /api/models
 ### 4.3 CORS配置
 
 **允许的源：**
+
 ```python
 FRONTEND_ORIGIN = "http://localhost:8000"
 ```
 
 **允许的方法：**
+
 - GET
 - POST
 - OPTIONS
 
 **允许的请求头：**
+
 - Content-Type
 - Authorization
 
@@ -538,6 +551,7 @@ class AIService:
 - 提供 `.env.example` 作为模板
 
 **`.env` 文件示例：**
+
 ```env
 SECRET_KEY=your-secret-key-here
 AI_API_KEY=your-openai-api-key
@@ -707,19 +721,19 @@ top_p=0.9
 # Redis缓存示例
 def solve_problem(self, problem: str) -> Optional[str]:
     cache_key = f"solution:{hashlib.md5(problem.encode()).hexdigest()}"
-    
+
     # 尝试从缓存获取
     cached = redis_client.get(cache_key)
     if cached:
         return cached
-    
+
     # 调用AI服务
     solution = self._call_ai(problem)
-    
+
     # 缓存结果（1小时）
     if solution:
         redis_client.setex(cache_key, 3600, solution)
-    
+
     return solution
 ```
 
@@ -796,6 +810,7 @@ WantedBy=multi-user.target
 ```
 
 **启动服务：**
+
 ```bash
 sudo systemctl start ai-solver
 sudo systemctl enable ai-solver
@@ -893,6 +908,7 @@ services:
 ```
 
 **启动：**
+
 ```bash
 docker-compose up -d
 ```
@@ -983,7 +999,7 @@ from openai import AsyncOpenAI
 class AsyncAIService:
     def __init__(self, api_key: str):
         self.client = AsyncOpenAI(api_key=api_key)
-    
+
     async def solve_problem_async(self, problem: str):
         response = await self.client.chat.completions.create(...)
         return response.choices[0].message.content
@@ -1120,26 +1136,26 @@ import time
 
 def test_full_workflow():
     driver = webdriver.Chrome()
-    
+
     try:
         # 打开前端页面
         driver.get('http://localhost:8000')
-        
+
         # 输入题目
         problem_input = driver.find_element(By.ID, 'problemInput')
         problem_input.send_keys('1+1=?')
-        
+
         # 点击解题按钮
         solve_btn = driver.find_element(By.ID, 'solveBtn')
         solve_btn.click()
-        
+
         # 等待结果
         time.sleep(5)
-        
+
         # 验证结果显示
         answer_content = driver.find_element(By.ID, 'answerContent')
         assert answer_content.is_displayed()
-        
+
     finally:
         driver.quit()
 ```
@@ -1155,10 +1171,10 @@ from locust import HttpUser, task, between
 
 class AISolverUser(HttpUser):
     wait_time = between(1, 3)
-    
+
     def on_start(self):
         self.client.get("/api/health")
-    
+
     @task
     def solve_problem(self):
         self.client.post("/api/solve",
@@ -1181,23 +1197,23 @@ pytest --cov=backend --cov-report=html
 
 ### A. 环境变量说明
 
-| 变量名 | 说明 | 默认值 | 必填 |
-|--------|------|--------|------|
-| SECRET_KEY | Flask密钥 | dev-secret-key | 否 |
-| AI_API_KEY | OpenAI API密钥 | - | 是 |
-| AI_API_BASE | API基础地址 | https://api.openai.com/v1 | 否 |
-| AI_MODEL | 模型名称 | gpt-3.5-turbo | 否 |
-| FRONTEND_ORIGIN | 前端地址 | http://localhost:8000 | 否 |
+| 变量名             | 说明           | 默认值                       | 必填  |
+| --------------- | ------------ | ------------------------- | --- |
+| SECRET_KEY      | Flask密钥      | dev-secret-key            | 否   |
+| AI_API_KEY      | OpenAI API密钥 | -                         | 是   |
+| AI_API_BASE     | API基础地址      | https://api.openai.com/v1 | 否   |
+| AI_MODEL        | 模型名称         | gpt-3.5-turbo             | 否   |
+| FRONTEND_ORIGIN | 前端地址         | http://localhost:8000     | 否   |
 
 ### B. 支持的AI模型
 
-| 模型 | 描述 | 适用场景 |
-|------|------|----------|
-| gpt-3.5-turbo | 快速、低成本 | 一般题目 |
-| gpt-4 | 能力强 | 复杂题目 |
-| gpt-4-turbo | 性能平衡 | 推荐使用 |
-| claude-3-sonnet | Anthropic模型 | 长文本 |
-| claude-3-opus | 高级模型 | 最复杂题目 |
+| 模型              | 描述          | 适用场景  |
+| --------------- | ----------- | ----- |
+| gpt-3.5-turbo   | 快速、低成本      | 一般题目  |
+| gpt-4           | 能力强         | 复杂题目  |
+| gpt-4-turbo     | 性能平衡        | 推荐使用  |
+| claude-3-sonnet | Anthropic模型 | 长文本   |
+| claude-3-opus   | 高级模型        | 最复杂题目 |
 
 ### C. 常见问题
 
@@ -1217,8 +1233,8 @@ pytest --cov=backend --cov-report=html
 
 ### D. 更新日志
 
-| 版本 | 日期 | 更新内容 |
-|------|------|----------|
+| 版本     | 日期         | 更新内容   |
+| ------ | ---------- | ------ |
 | v1.0.0 | 2026-02-16 | 初始版本发布 |
 
 ### E. 联系方式

@@ -1,6 +1,6 @@
 # AI解题助手 - 快速使用指南
 
-## 🎉 项目已完成！
+# 
 
 这是一个完整的AI解题Web应用MVP，实现了前后端完全分离的架构。
 
@@ -119,6 +119,7 @@ FRONTEND_ORIGIN=http://localhost:8000
 ```
 
 **支持的模型：**
+
 - `gpt-3.5-turbo`（默认，推荐）
 - `gpt-4`（更强，但费用更高）
 - `claude-3-sonnet-20240229`
@@ -127,11 +128,13 @@ FRONTEND_ORIGIN=http://localhost:8000
 ## 🌐 API接口
 
 ### 健康检查
+
 ```bash
 GET http://localhost:5000/api/health
 ```
 
 ### 解题接口
+
 ```bash
 POST http://localhost:5000/api/solve
 Content-Type: application/json
@@ -142,6 +145,7 @@ Content-Type: application/json
 ```
 
 ### 获取模型信息
+
 ```bash
 GET http://localhost:5000/api/models
 ```
@@ -149,6 +153,7 @@ GET http://localhost:5000/api/models
 ## 💡 使用示例
 
 1. **输入题目**：在左侧输入框输入题目
+   
    ```
    计算 (2x + 3)^2 的展开式
    ```
@@ -170,21 +175,25 @@ GET http://localhost:5000/api/models
 ## 🐛 常见问题
 
 **问题：无法连接后端**
+
 - 检查后端是否已启动：`python backend/app.py`
 - 检查端口是否被占用：5000
 
 **问题：API密钥无效**
+
 - 检查 `backend/.env` 文件是否正确配置
 - 检查API密钥是否有效
 - 检查API余额是否充足
 
 **问题：跨域错误**
+
 - 检查 `backend/.env` 中的 `FRONTEND_ORIGIN` 配置
 - 确保前端地址与配置一致
 
 ## 📚 完整文档
 
 查看 `README.md` 获取更详细的文档，包括：
+
 - 项目架构说明
 - 部署指南
 - API文档
