@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI解题助手 - AI Solver</title>
+    
+    <!-- Bootstrap 3 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    
+    <!-- 自定义样式 -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="sr-only">切换导航</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <i class="fa fa-robot"></i> AI解题助手
+                </a>
+            </div>
+            
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#about" data-toggle="modal" data-target="#aboutModal">
+                        <i class="fa fa-info-circle"></i> 关于
+                    </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主容器 -->
+    <div class="container main-container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- 页面标题 -->
+                <div class="page-header text-center">
+                    <h1><i class="fa fa-robot"></i> AI解题助手</h1>
+                    <p class="lead">智能解答各类题目，让学习变得更简单</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- 左侧：题目输入区 -->
+            <div class="col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="fa fa-pencil"></i> 输入题目
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <form id="problemForm">
+                            <div class="form-group">
+                                <label for="problemInput">题目内容：</label>
+                                <textarea 
+                                    id="problemInput" 
+                                    class="form-control" 
+                                    rows="15" 
+                                    placeholder="请在此输入题目内容...例如：计算 (2x + 3)^2 的展开式"
+                                    required
+                                ></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block" id="solveBtn">
+                                    <i class="fa fa-magic"></i> AI解题
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <!-- 示例题目 -->
+                        <div class="examples">
+                            <h5><i class="fa fa-lightbulb-o"></i> 示例题目：</h5>
+                            <div class="list-group">
+                                <a href="#" class="list-group-item example-item">
+                                    <small>计算：2^10 + 3^5 = ?</small>
+                                </a>
+                                <a href="#" class="list-group-item example-item">
+                                    <small>解方程：x^2 - 5x + 6 = 0</small>
+                                </a>
+                                <a href="#" class="list-group-item example-item">
+                                    <small>解释什么是光合作用</small>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧：答案展示区 -->
+            <div class="col-md-6">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="fa fa-check-circle"></i> AI解答
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <!-- 初始状态 -->
+                        <div id="initialState" class="text-center text-muted" style="padding: 60px 20px;">
+                            <i class="fa fa-arrow-left fa-3x"></i>
+                            <h4>请在左侧输入题目</h4>
+                            <p>点击"AI解题"按钮获取智能解答</p>
+                        </div>
+                        
+                        <!-- 加载状态 -->
+                        <div id="loadingState" class="text-center" style="display: none; padding: 60px 20px;">
+                            <i class="fa fa-spinner fa-spin fa-3x text-primary"></i>
+                            <h4>AI正在思考中...</h4>
+                            <p>请稍候，正在为您生成解答</p>
+                        </div>
+                        
+                        <!-- 答案内容 -->
+                        <div id="answerContent" style="display: none;">
+                            <div class="problem-info">
+                                <h5><i class="fa fa-question-circle"></i> 题目：</h5>
+                                <div class="well well-sm" id="problemText"></div>
+                            </div>
+                            
+                            <div class="solution-info">
+                                <h5><i class="fa fa-check-circle"></i> 解答：</h5>
+                                <div class="well" id="solutionText" style="background-color: #f9f9f9;"></div>
+                            </div>
+                            
+                            <div class="action-buttons">
+                                <button class="btn btn-default" id="copyBtn">
+                                    <i class="fa fa-copy"></i> 复制答案
+                                </button>
+                                <button class="btn btn-default" id="clearBtn">
+                                    <i class="fa fa-eraser"></i> 清除
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- 错误信息 -->
+                        <div id="errorState" class="alert alert-danger" style="display: none;">
+                            <i class="fa fa-exclamation-triangle"></i>
+                            <span id="errorMessage"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 关于模态框 -->
+    <div class="modal fade" id="aboutModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <i class="fa fa-info-circle"></i> 关于AI解题助手
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <h4>功能介绍</h4>
+                    <p>AI解题助手是一个基于大语言模型的智能解题工具，可以帮助您解答各类学科题目。</p>
+                    
+                    <h4>使用说明</h4>
+                    <ol>
+                        <li>在左侧输入框中输入题目</li>
+                        <li>点击"AI解题"按钮</li>
+                        <li>等待AI生成详细解答</li>
+                        <li>可以复制答案或清除重新输入</li>
+                    </ol>
+                    
+                    <h4>配置信息</h4>
+                    <p>
+                        后端API地址: <code id="apiEndpoint">http://localhost:5000</code><br>
+                        当前模型: <code id="currentModel">-</code>
+                    </p>
+                    
+                    <hr>
+                    <p class="text-center text-muted">
+                        <small>© 2026 AI解题助手 MVP版本</small>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="text-center">
+                <p class="text-muted">
+                    <i class="fa fa-robot"></i> AI解题助手 MVP版本
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    
+    <!-- Bootstrap 3 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"></script>
+    
+    <!-- 自定义JS -->
+    <script src="js/app.js"></script>
+</body>
+</html>

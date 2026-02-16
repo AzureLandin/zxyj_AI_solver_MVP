@@ -1,0 +1,22 @@
+{
+  "include": [
+    "*.py"
+  ],
+  "exclude": [
+    "**/__pycache__",
+    "**/venv",
+    "**/env"
+  ],
+  "pythonVersion": "3.10",
+  "pythonPlatform": "Windows",
+  "typeCheckingMode": "basic",
+  "stubPath": "",
+  "reportMissingImports": "none",
+  "reportMissingModuleSource": "none",
+  "reportImplicitRelativeImport": "none",
+  "reportUnknownMemberType": "none",
+  "reportUnknownVariableType": "none",
+  "reportUnknownParameterType": "none",
+  "reportUnknownArgumentType": "none",
+  "reportUntypedFunctionDecorator": "none"
+}

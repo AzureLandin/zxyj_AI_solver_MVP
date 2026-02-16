@@ -1,0 +1,293 @@
+/* AI解题助手样式 */
+
+body {
+    font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #f5f5f5;
+    padding-top: 70px;
+    padding-bottom: 60px;
+}
+
+/* 导航栏样式 */
+.navbar-default {
+    background-color: #fff;
+    border-bottom: 2px solid #337ab7;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: #337ab7 !important;
+}
+
+.navbar-brand i {
+    margin-right: 8px;
+}
+
+/* 主容器 */
+.main-container {
+    min-height: calc(100vh - 130px);
+}
+
+/* 面板样式 */
+.panel {
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.panel-primary {
+    border-top: 4px solid #337ab7;
+}
+
+.panel-success {
+    border-top: 4px solid #5cb85c;
+}
+
+.panel-heading {
+    padding: 15px 20px;
+    font-weight: bold;
+}
+
+.panel-title {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.panel-body {
+    padding: 20px;
+    min-height: 500px;
+}
+
+/* 表单样式 */
+#problemInput {
+    resize: vertical;
+    font-size: 16px;
+    line-height: 1.6;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 15px;
+    transition: border-color 0.3s ease;
+}
+
+#problemInput:focus {
+    border-color: #337ab7;
+    box-shadow: 0 0 8px rgba(51, 122, 183, 0.2);
+    outline: none;
+}
+
+/* 按钮样式 */
+.btn {
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-lg {
+    padding: 12px 24px;
+    font-size: 16px;
+}
+
+.btn-primary {
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+.btn-primary:hover {
+    background-color: #286090;
+    border-color: #286090;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(51, 122, 183, 0.3);
+}
+
+.btn-default:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* 示例题目样式 */
+.examples {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.examples h5 {
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.example-item {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-left: 3px solid #337ab7;
+}
+
+.example-item:hover {
+    background-color: #f5f5f5;
+    transform: translateX(5px);
+}
+
+/* 答案内容样式 */
+#answerContent h5 {
+    color: #333;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#answerContent h5:first-child {
+    margin-top: 0;
+}
+
+.well {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 15px;
+}
+
+.well-sm {
+    background-color: #e8f4f8;
+    border-color: #bce8f1;
+    color: #31708f;
+}
+
+#solutionText {
+    line-height: 1.8;
+    font-size: 15px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+#solutionText strong {
+    color: #5cb85c;
+}
+
+/* 操作按钮 */
+.action-buttons {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.action-buttons .btn {
+    margin-left: 10px;
+}
+
+/* 加载动画 */
+.fa-spinner {
+    color: #337ab7;
+}
+
+/* 错误提示 */
+.alert-danger {
+    border-radius: 6px;
+    margin-top: 20px;
+}
+
+/* 模态框样式 */
+.modal-content {
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.modal-header {
+    background-color: #337ab7;
+    color: white;
+    border-radius: 8px 8px 0 0;
+    border: none;
+    padding: 15px 20px;
+}
+
+.modal-title {
+    font-weight: 600;
+}
+
+.modal-body h4 {
+    color: #337ab7;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.modal-body h4:first-child {
+    margin-top: 0;
+}
+
+.modal-body ol {
+    padding-left: 20px;
+}
+
+.modal-body ol li {
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+.modal-body code {
+    background-color: #f5f5f5;
+    padding: 2px 6px;
+    border-radius: 3px;
+    color: #c7254e;
+}
+
+/* 页脚样式 */
+.footer {
+    background-color: #fff;
+    border-top: 1px solid #e0e0e0;
+    padding: 20px 0;
+    margin-top: 40px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .panel-body {
+        min-height: auto;
+    }
+    
+    #problemInput {
+        height: 200px;
+    }
+    
+    .action-buttons {
+        text-align: center;
+    }
+    
+    .action-buttons .btn {
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-bottom: 10px;
+        display: inline-block;
+    }
+}
+
+/* 动画效果 */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
