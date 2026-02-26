@@ -4,7 +4,11 @@
  */
 
 $(document).ready(function() {
+<<<<<<< HEAD
     // API配置
+=======
+    // 配置
+>>>>>>> dfd5478b2891ec89ac876277be135da52ebb8d54
     const API_BASE_URL = 'http://localhost:5000/api';
     
     // 全局变量
