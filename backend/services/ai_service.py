@@ -190,7 +190,133 @@ class AIService:
             error_msg = f"未知错误: {str(e)}"
             print(error_msg)
             raise AIServiceAPIError(error_msg)
-    
+
+    def solve_problem_with_image(self, image_base64: str) -> Optional[str]:
+        """
+        使用AI模型识别图片中的题目并解答
+
+        Args:
+            image_base64: Base64编码的图片数据
+
+        Returns:
+            解决方案文本，如果失败返回None
+
+        Raises:
+            AIServiceAPIError: 当API调用失败时抛出
+            AIServiceConnectionError: 当网络连接失败时抛出
+        """
+        try:
+            # 构建提示词
+            system_prompt = f"""你是一个专业的AI解题助手。用户会上传一张题目图片，请你：
+
+                    1. 仔细识别图片中的题目内容
+                    2. 如果图片不清晰或无法识别，请说明
+                    3. 提供详细的解题步骤和思路
+                    4. 如果涉及计算，展示完整的计算过程
+                    5. 最后给出明确的答案
+                    6. 使用清晰、易懂的语言
+                    7. 对于数学问题，可以使用LaTeX格式表示公式
+                    8. 如果问题不完整或不清楚，请指出并请求澄清
+                    9. 如果用户上传的图片中没有题目，请说明
+
+                    请按照以下格式回答：
+                    **问题分析**：
+                    [分析题目要求和已知条件]
+
+                    **解题思路**：
+                    [描述解题的整体思路和方法]
+
+                    **详细步骤**：
+                    [展示详细的解题步骤]
+
+                    **最终答案**：
+                    [给出明确的最终答案]
+
+                    现在开始解题：
+                    """
+
+            # 构建消息，包含图片
+            # 检测API类型以确定图片格式
+            api_base = self.api_base or ''
+            is_zhipu = 'bigmodel.cn' in api_base or 'zhipu' in api_base
+
+            if is_zhipu:
+                # 智谱AI格式 (GLM-4V)
+                user_content = [
+                    {"type": "text", "text": "请识别并解答这道题目："},
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": image_base64
+                        }
+                    }
+                ]
+            else:
+                # OpenAI标准格式
+                user_content = [
+                    {"type": "text", "text": "请识别并解答这道题目："},
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": f"data:image/jpeg;base64,{image_base64}"
+                        }
+                    }
+                ]
+
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {
+                        "role": "user",
+                        "content": user_content
+                    }
+                ],
+                temperature=0.7,
+                max_tokens=4000,
+                top_p=0.9,
+                frequency_penalty=0,
+                presence_penalty=0,
+                timeout=60.0
+            )
+
+            # 提取回答
+            if response.choices and len(response.choices) > 0:
+                solution = response.choices[0].message.content
+                if solution and solution.strip():
+                    return solution
+                else:
+                    print("AI返回的答案为空")
+                    return None
+            else:
+                print("AI未返回有效的选择")
+                return None
+
+        except openai.APITimeoutError as e:
+            error_msg = f"API请求超时: {str(e)}"
+            print(error_msg)
+            raise AIServiceConnectionError(error_msg)
+        except openai.APIConnectionError as e:
+            error_msg = f"API连接错误: {str(e)}"
+            print(error_msg)
+            raise AIServiceConnectionError(error_msg)
+        except openai.RateLimitError as e:
+            error_msg = f"API调用频率超限: {str(e)}"
+            print(error_msg)
+            raise AIServiceAPIError(error_msg)
+        except openai.APIStatusError as e:
+            error_msg = f"API状态错误 (状态码: {e.status_code}): {str(e)}"
+            print(error_msg)
+            raise AIServiceAPIError(error_msg)
+        except openai.APIError as e:
+            error_msg = f"API调用错误: {str(e)}"
+            print(error_msg)
+            raise AIServiceAPIError(error_msg)
+        except Exception as e:
+            error_msg = f"未知错误: {str(e)}"
+            print(error_msg)
+            raise AIServiceAPIError(error_msg)
+
     def test_connection(self) -> bool:
         """
         测试API连接是否正常

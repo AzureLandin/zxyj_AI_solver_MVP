@@ -1,74 +1,94 @@
 @echo off
-REM AIè§£é¢˜åŠ©æ‰‹ - å¿«é€Ÿå¯åŠ¨è„šæœ¬
+chcp 65001 >nul
+REM AI½âÌâÖúÊÖ - Ò»¼üÆô¶¯½Å±¾
 
 echo ========================================
-echo    AIè§£é¢˜åŠ©æ‰‹ - å¿«é€Ÿå¯åŠ¨
+echo    AI½âÌâÖúÊÖ - Æô¶¯Æ÷
 echo ========================================
 echo.
 
-REM æ£€æŸ¥Pythonç‰ˆæœ¬
-echo æ£€æŸ¥Pythonç¯å¢ƒ...
+REM ¼ì²éPython
 python --version >nul 2>&1
 if %errorlevel% neq 0 (
-    echo é”™è¯¯: æœªæ‰¾åˆ°Pythonï¼Œè¯·å…ˆå®‰è£…Python 3.7+
+    echo ´íÎó: Î´ÕÒµ½ Python£¬ÇëÏÈ°²×° Python 3.7+
     pause
     exit /b 1
 )
 
-REM åˆ›å»º.envæ–‡ä»¶ï¼ˆå¦‚æœä¸å­˜åœ¨ï¼‰
+REM ¼ì²éÅäÖÃÎÄ¼ş
 if not exist "backend\.env" (
-    echo åˆ›å»ºåç«¯é…ç½®æ–‡ä»¶...
-    copy "backend\.env.example" "backend\.env"
-    echo.
-    echo æ³¨æ„: è¯·ç¼–è¾‘ backend\.env æ–‡ä»¶ï¼Œå¡«å†™ä½ çš„AI APIå¯†é’¥
-    echo.
+    if exist "backend\.env.example" (
+        echo Ê×´ÎÔËĞĞ£¬´´½¨ÅäÖÃÎÄ¼ş...
+        copy "backend\.env.example" "backend\.env"
+        echo.
+        echo ×¢Òâ: Çë±à¼­ backend\.env ÎÄ¼ş£¬ÌîĞ´ÄãµÄ API ÃÜÔ¿
+        echo.
+        start notepad "backend\.env"
+        pause
+    ) else (
+        echo ´íÎó: ÕÒ²»µ½ÅäÖÃÎÄ¼şÄ£°å
+        pause
+        exit /b 1
+    )
+)
+
+REM ¼ì²éÒÀÀµ
+python -c "import flask, openai" >nul 2>&1
+if %errorlevel% neq 0 (
+    echo °²×°ºó¶ËÒÀÀµ...
+    pip install -r backend\requirements.txt
+    if %errorlevel% neq 0 (
+        echo ÒÀÀµ°²×°Ê§°Ü
+        pause
+        exit /b 1
+    )
 )
 
 echo.
-echo ========================================
-echo è¯·é€‰æ‹©å¯åŠ¨æ–¹å¼ï¼š
-echo 1. åŒæ—¶å¯åŠ¨å‰åç«¯ï¼ˆéœ€è¦ä¸¤ä¸ªç»ˆç«¯ï¼‰
-echo 2. ä»…å¯åŠ¨åç«¯
-echo 3. ä»…å¯åŠ¨å‰ç«¯
-echo 4. å®‰è£…åç«¯ä¾èµ–
-echo 5. é€€å‡º
-echo ========================================
+echo Æô¶¯·½Ê½:
+echo   [1] Í¬Ê±Æô¶¯Ç°ºó¶Ë (ÍÆ¼ö)
+echo   [2] ½öÆô¶¯ºó¶Ë
+echo   [3] ½öÆô¶¯Ç°¶Ë
+echo   [4] ÍË³ö
 echo.
 
-set /p choice="è¯·è¾“å…¥é€‰é¡¹ (1-5): "
+set /p choice="ÇëÑ¡Ôñ (1-4): "
 
 if "%choice%"=="1" (
     echo.
-    echo æ­£åœ¨å¯åŠ¨åç«¯æœåŠ¡...
-    start "AI Solver Backend" cmd /k "cd backend && python app.py"
-    timeout /t 3 /nobreak >nul
-    
-    echo æ­£åœ¨å¯åŠ¨å‰ç«¯æœåŠ¡...
-    start "AI Solver Frontend" cmd /k "python run_frontend.py"
-    
+    echo ÕıÔÚÆô¶¯ AI½âÌâÖúÊÖ...
     echo.
-    echo ========================================
-    echo å¯åŠ¨å®Œæˆï¼
-    echo å‰ç«¯: http://localhost:8000
-    echo åç«¯: http://localhost:5000
-    echo ========================================
+    
+    REM Æô¶¯ºó¶Ë
+    start "AI Solver ºó¶Ë" cmd /k "cd backend && python app.py"
+    
+    REM µÈ´ıºó¶ËÆô¶¯
+    timeout /t 2 /nobreak >nul
+    
+    REM Æô¶¯Ç°¶Ë
+    start "AI Solver Ç°¶Ë" cmd /k "python run_frontend.py"
+    
+    echo Æô¶¯Íê³É!
+    echo   Ç°¶Ë: http://localhost:8000
+    echo   ºó¶Ë: http://localhost:5000
+    echo.
+    timeout /t 3 >nul
+    
 ) else if "%choice%"=="2" (
-    echo å¯åŠ¨åç«¯æœåŠ¡...
+    echo.
+    echo Æô¶¯ºó¶Ë·şÎñ...
     cd backend
     python app.py
+    
 ) else if "%choice%"=="3" (
-    echo å¯åŠ¨å‰ç«¯æœåŠ¡...
-    python run_frontend.py
-) else if "%choice%"=="4" (
-    echo å®‰è£…åç«¯ä¾èµ–...
-    cd backend
-    pip install -r requirements.txt
     echo.
-    echo ä¾èµ–å®‰è£…å®Œæˆï¼
-    pause
-) else if "%choice%"=="5" (
+    echo Æô¶¯Ç°¶Ë·şÎñ...
+    python run_frontend.py
+    
+) else if "%choice%"=="4" (
     exit /b 0
+    
 ) else (
-    echo æ— æ•ˆçš„é€‰é¡¹ï¼
+    echo ÎŞĞ§Ñ¡Ïî
     pause
 )

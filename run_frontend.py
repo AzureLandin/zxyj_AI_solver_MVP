@@ -11,7 +11,7 @@ from pathlib import Path
 
 # 配置
 PORT = 8000
-FRONTEND_DIR = Path(__file__).parent / "frontend"
+FRONTEND_DIR: Path = Path(__file__).parent / "frontend"
 
 class MyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
